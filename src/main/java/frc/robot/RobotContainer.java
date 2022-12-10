@@ -34,27 +34,27 @@ public class RobotContainer {
   // button work //
 
   public final JoystickButton toggleclaw = new JoystickButton(coDriveController, Constants.IOConstants.xButtonChannel);
-  public final JoystickButton armup = new JoystickButton(coDriveController, Constants.IOConstants.aButtonChannel);
-  public final JoystickButton armdown = new JoystickButton(coDriveController, Constants.IOConstants.bButtonChannel);
+  public final JoystickButton armup = new JoystickButton(coDriveController, Constants.IOConstants.yButtonChannel);
+  public final JoystickButton armdown = new JoystickButton(coDriveController, Constants.IOConstants.aButtonChannel);
 
   public InstantCommand clawCommand = new InstantCommand(
     () -> arm.toggleClaw(),
   arm);
 
   public StartEndCommand clawupCommand = new StartEndCommand(
-    () -> arm.runarm(0.3),
-    () ->arm.runarm(0.1),
+    () -> arm.runarm(0.4),
+    () ->arm.runarm(0.05),
   arm);
 
   public StartEndCommand clawdownCommand = new StartEndCommand(
-    () -> arm.runarm(0.2),
-    () -> arm.stoparm(),
+    () -> arm.runarm(-0.2),
+    () -> arm.runarm(0.0),
   arm);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drive.setDefaultCommand(new VROOM(drive, driveController));
-    // arm.setDefaultCommand(new MOVEARM(arm, coDriveController));
+    arm.setDefaultCommand(new MOVEARM(arm, coDriveController));
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -67,8 +67,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     toggleclaw.whenPressed(clawCommand);
-    armup.whenPressed(clawupCommand);
-    armdown.whenPressed(clawdownCommand);
+    // armup.whenPressed(clawupCommand);
+    // armdown.whenPressed(clawdownCommand);
   }
 
   /**
@@ -79,6 +79,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     // drive speed, turn speed, 1st drive time, turn time, 2nd drive time
-    return new Autonomous(drive, 0.5, 0.5, 3, 3, 3);
+    return new Autonomous(drive, 0.5, 0.5, 2, 3, 3);
   }
 }

@@ -9,8 +9,8 @@ public class Autonomous extends SequentialCommandGroup{
     public Autonomous(drivetrain drive, double drivespeed, double turnspeed, double firstdrivetime,
         double turntime, double seconddrivetime) {
             super(
-                new timedDrive(drive, drivespeed, firstdrivetime),
-                new timedTurn(drive, turnspeed, turntime),
-                new timedDrive(drive, drivespeed, seconddrivetime));
+                new timedDrive(drive, drivespeed, firstdrivetime));
+                // new timedTurn(drive, turnspeed, turntime),
+                // new timedDrive(drive, drivespeed, seconddrivetime));
         }
 }
