@@ -28,6 +28,6 @@ public class MOVEARM extends CommandBase{
     public void execute() {
         double speed = -m_controller.getLeftY();
 
-        m_arm.runarm(speed*0.4);
+        m_arm.runarm(speed*0.5);
     }
 }

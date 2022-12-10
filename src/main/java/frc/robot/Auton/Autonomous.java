@@ -12,5 +12,7 @@ public class Autonomous extends SequentialCommandGroup{
                 new timedDrive(drive, drivespeed, firstdrivetime));
                 // new timedTurn(drive, turnspeed, turntime),
                 // new timedDrive(drive, drivespeed, seconddrivetime));
-        }
+            
+            System.out.println("I've been used");
+    }
 }
