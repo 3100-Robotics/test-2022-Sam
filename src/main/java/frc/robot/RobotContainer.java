@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Auton.Autonomous;
 import frc.robot.commands.MOVEARM;
@@ -33,28 +34,41 @@ public class RobotContainer {
   // button work //
 
   public final JoystickButton toggleclaw = new JoystickButton(coDriveController, Constants.IOConstants.xButtonChannel);
+  public final JoystickButton armup = new JoystickButton(coDriveController, Constants.IOConstants.aButtonChannel);
+  public final JoystickButton armdown = new JoystickButton(coDriveController, Constants.IOConstants.bButtonChannel);
 
   public InstantCommand clawCommand = new InstantCommand(
     () -> arm.toggleClaw(),
   arm);
 
+  public StartEndCommand clawupCommand = new StartEndCommand(
+    () -> arm.runarm(0.3),
+    () ->arm.runarm(0.1),
+  arm);
+
+  public StartEndCommand clawdownCommand = new StartEndCommand(
+    () -> arm.runarm(0.2),
+    () -> arm.stoparm(),
+  arm);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drive.setDefaultCommand(new VROOM(drive, driveController));
-    arm.setDefaultCommand(new MOVEARM(arm, coDriveController));
+    // arm.setDefaultCommand(new MOVEARM(arm, coDriveController));
     // Configure the button bindings
     configureButtonBindings();
   }
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
-   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   * instantiating a {@link GenericHID} or one of its subclasses ({@lind then passing it to a {@link
+   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.nk
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), a
    */
   private void configureButtonBindings() {
     toggleclaw.whenPressed(clawCommand);
+    armup.whenPressed(clawupCommand);
+    armdown.whenPressed(clawdownCommand);
   }
 
   /**
